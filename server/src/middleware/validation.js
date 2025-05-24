@@ -36,7 +36,7 @@ export const validateRequest = (req, res, next) => {
  */
 export const userCreateValidation = [
   // username: required, alphanumeric, 3-30 chars
-  check('username')
+  check('name')
     .trim()
     .isLength({ min: 3, max: 30 })
     .withMessage('Username must be between 3 and 30 characters')
@@ -103,7 +103,7 @@ export const bookCreateValidation = [
  * Validation rules for submitting a review
  */
 export const reviewCreateValidation = [
-  check('bookId')
+  check('book')
     .notEmpty()
     .withMessage('Book ID is required')
     .isMongoId()

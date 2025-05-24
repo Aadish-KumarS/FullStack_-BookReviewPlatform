@@ -12,10 +12,13 @@ import booksRoutes from './routes/books.routes.js';
 import reviewsRoutes from './routes/reviews.routes.js';
 import usersRoutes from './routes/users.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import dotenv from 'dotenv';
+
 // import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 
+dotenv.config();
 // --------------------
 // Global Middleware
 // --------------------
@@ -28,18 +31,8 @@ app.use(morgan('dev')); // Log HTTP requests in dev mode
 // --------------------
 app.get('/', (req, res) => {
   res.status(200).json({
-    message: '📚 Book Review API is up and running!',
+    message: 'Book Review API is up and running!',
     status: 'success',
-  });
-});
-
-// --------------------
-// 404 Handler
-// --------------------
-app.use('*', (req, res) => {
-  res.status(404).json({
-    status: 'fail',
-    message: `🔍 Route not found: ${req.originalUrl}`,
   });
 });
 
@@ -54,6 +47,17 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/books', booksRoutes);
 app.use('/api/reviews', reviewsRoutes);
+
+// --------------------
+// 404 Handler
+// --------------------
+app.use('*', (req, res) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `🔍 Route not found: ${req.originalUrl}`,
+  });
+});
+
 
 /**
  * ======================
