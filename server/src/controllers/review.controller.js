@@ -34,23 +34,25 @@ export const getReviewsByBook = async (req, res, next) => {
 // Also updates the book's average rating and rating count
 export const createReview = async (req, res, next) => {
   try {
-    const { book, rating, comment } = req.body;
+    const { bookId, rating, comment } = req.body;
+    console.log(bookId, rating, comment);
+
     const userId = req.user._id;
 
     // Validate input presence
-    if (!book || !rating) {
+    if (!bookId || !rating) {
       return res.status(400).json({ success: false, message: 'Book and rating are required' });
     }
 
     // Prevent duplicate review by same user for same book
-    const existingReview = await Review.findOne({ book, user: userId });
+    const existingReview = await Review.findOne({ book: bookId, user: userId });
     if (existingReview) {
       return res.status(409).json({ success: false, message: 'You have already reviewed this book' });
     }
 
     // Create new review document
     const newReview = new Review({
-      book,
+      book: bookId,
       user: userId,
       rating,
       comment: comment || '',
@@ -59,13 +61,13 @@ export const createReview = async (req, res, next) => {
     await newReview.save();
 
     // Update book's averageRating and ratingsCount atomically
-    const reviews = await Review.find({ book });
+    const reviews = await Review.find({ book: bookId });
 
     const ratingsCount = reviews.length;
     const averageRating =
       reviews.reduce((acc, r) => acc + r.rating, 0) / ratingsCount;
 
-    await Book.findByIdAndUpdate(book, {
+    await Book.findByIdAndUpdate(bookId, {
       ratingsCount,
       averageRating,
     });

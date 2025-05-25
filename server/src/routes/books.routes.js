@@ -7,7 +7,7 @@
  */
 
 import express from 'express';
-import { getBooks, getBookById, createBook } from '../controllers/book.controller.js';
+import { getBooks, getBookById, createBook,deleteBook } from '../controllers/book.controller.js';
 import { protect, admin } from '../middleware/auth.js';
 import { bookCreateValidation, validateRequest } from '../middleware/validation.js';
 
@@ -21,5 +21,8 @@ router.get('/:id', getBookById);
 
 // POST /books - Add a new book (admin only)
 router.post('/', protect, admin, bookCreateValidation, validateRequest, createBook);
+
+// DELETE /book - Delete a new book (admin only)
+router.delete('/:id', protect, admin, deleteBook);
 
 export default router;

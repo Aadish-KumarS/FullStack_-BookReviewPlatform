@@ -88,10 +88,10 @@ export const bookCreateValidation = [
     .isISO8601()
     .withMessage('Published date must be a valid date'),
 
-  check('genres')
+  check('genre')
     .optional()
-    .isArray()
-    .withMessage('Genres must be an array'),
+    .notEmpty()
+    .withMessage('Genre is required'),
 
   check('description')
     .optional()
@@ -103,7 +103,7 @@ export const bookCreateValidation = [
  * Validation rules for submitting a review
  */
 export const reviewCreateValidation = [
-  check('book')
+  check('bookId')
     .notEmpty()
     .withMessage('Book ID is required')
     .isMongoId()

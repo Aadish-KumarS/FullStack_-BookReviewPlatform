@@ -1,0 +1,135 @@
+/* 1. Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Base HTML styles */
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: 1.6rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+:root {
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-warm: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --gradient-success: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --gradient-error: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+
+  /* Solid Colors */
+  --color-primary: #667eea;
+  --color-secondary: #764ba2;
+  --color-accent: #4facfe;
+  --color-warm: #fa709a;
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-white: #ffffff;
+  --color-dark: #1a1a2e;
+  --color-gray: #6b7280;
+  --color-gray-light: #e5e7eb;
+
+  /* Glassmorphism */
+  --color-glass: rgba(255, 255, 255, 0.25);
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --backdrop-blur: blur(20px);
+
+  /* Extra Shadows */
+  --shadow-elevated: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+
+:root {
+  --font-main: 'Poppins', sans-serif;
+
+  /* Spacing (in rem) */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 3.2rem;
+  --space-xl: 6.4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.8rem;
+  --radius-lg: 1.2rem;
+
+  /* Transition */
+  --transition: all 0.3s ease-in-out;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: var(--space-sm);
+  line-height: 1.2;
+}
+
+h1 { font-size: 3.6rem; }
+h2 { font-size: 3.0rem; }
+h3 { font-size: 2.4rem; }
+h4 { font-size: 2.0rem; }
+h5 { font-size: 1.8rem; }
+h6 { font-size: 1.6rem; }
+
+p {
+  margin-bottom: var(--space-md);
+  color: var(--text-light);
+}
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 500;
+  transition: var(--transition);
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--primary-light);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+main {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 5rem); /* Assuming header height ~5rem */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

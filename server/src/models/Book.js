@@ -1,23 +1,12 @@
-/**
- * ========================================
- * Book Model
- * Defines the schema for books including metadata,
- * ratings, and timestamps.
- * ========================================
- */
-
 import mongoose from 'mongoose';
 
-// ---------------------------
-// Book Schema Definition
-// ---------------------------
 const bookSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: [true, 'Book title is required'],
       trim: true,
-      index: true, // Indexed for faster search
+      index: true,
     },
 
     author: {
@@ -51,7 +40,6 @@ const bookSchema = new mongoose.Schema(
       default: 0,
       min: [0, 'Rating cannot be less than 0'],
       max: [5, 'Rating cannot be more than 5'],
-      // Will be updated programmatically based on reviews
     },
 
     ratingsCount: {
@@ -59,14 +47,17 @@ const bookSchema = new mongoose.Schema(
       default: 0,
       min: [0, 'Ratings count cannot be negative'],
     },
+
+    image: {
+      type: String,
+      trim: true,
+      default: '',
+    },
   },
   {
-    timestamps: true, // createdAt and updatedAt
+    timestamps: true,
   }
 );
 
-// ---------------------------
-// Export the Book Model
-// ---------------------------
 const Book = mongoose.model('Book', bookSchema);
 export default Book;

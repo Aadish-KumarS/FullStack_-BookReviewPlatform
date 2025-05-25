@@ -21,18 +21,19 @@ export const getBooks = async (req, res, next) => {
     const { title, author, genre } = req.query;
     const filter = {};
 
-    if (title) filter.title = { $regex: title, $options: 'i' }; // Case-insensitive partial match
+    if (title) filter.title = { $regex: title, $options: 'i' };
     if (author) filter.author = { $regex: author, $options: 'i' };
     if (genre) filter.genre = genre;
 
     // Count total documents matching filter for pagination metadata
     const total = await Book.countDocuments(filter);
 
-    // Fetch books with filters and pagination
+    // Fetch books with filters and pagination, select specific fields including image
     const books = await Book.find(filter)
       .skip(skip)
       .limit(limit)
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .select('title author genre publishedYear averageRating ratingsCount image');
 
     res.status(200).json({
       success: true,
@@ -68,7 +69,7 @@ export const getBookById = async (req, res, next) => {
 // Add a new book (Admin only)
 export const createBook = async (req, res, next) => {
   try {
-    const { title, author, description, genre, publishedYear } = req.body;
+    const { title, author, description, genre, publishedYear, image } = req.body;
 
     // Basic validation - can be expanded or moved to middleware
     if (!title || !author || !description || !genre) {
@@ -81,6 +82,7 @@ export const createBook = async (req, res, next) => {
       description,
       genre,
       publishedYear,
+      image
     });
 
     const savedBook = await newBook.save();
@@ -88,5 +90,21 @@ export const createBook = async (req, res, next) => {
     res.status(201).json({ success: true, data: savedBook });
   } catch (error) {
     next(error);
+  }
+};
+
+// DELETE /book
+// Delete a book (Admin only)
+export const deleteBook = async (req, res) => {
+  try {
+    const book = await Book.findByIdAndDelete(req.params.id);
+
+    if (!book) {
+      return res.status(404).json({ success: false, message: 'Book not found' });
+    }
+
+    res.status(200).json({ success: true, message: 'Book deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
   }
 };
