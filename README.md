@@ -1,123 +1,226 @@
-# FullStack_-BookReviewPlatform
+---
 
-Objective
-Develop a book review platform where users can browse books, read and write reviews, and rate books. The application should have a React frontend and a Node.js backend using Express and SQL/MongoDB.
+# 📚 Book Review Platform
 
-Requirements
-Frontend (React)
-1. Create a responsive UI with the following pages/components:
-○ Home page with featured books
-○ Book listing page with search and filter functionality
-○ Individual book page with details and reviews
-○ User profile page
-○ Review submission form
-2. Implement state management (e.g., using Redux or React Context)
-3. Use React Router for navigation
-4. Integrate with the backend API
-5. Implement error handling and loading states
-Backend (Node.js, Express, SQL/MongoDB)
-1. Set up a RESTful API with the following endpoints:
-○ GET /books - Retrieve all books (with pagination)
-○ GET /books/:id - Retrieve a specific book
-○ POST /books - Add a new book (admin only)
-○ GET /reviews - Retrieve reviews for a book
-○ POST /reviews - Submit a new review
-○ GET /users/:id - Retrieve user profile
-○ PUT /users/:id - Update user profile
-2. Implement data validation and error handling
-3. Use SQL/MongoDB for data persistence
- 
+A full-stack MERN (MongoDB, Express.js, React.js, Node.js) application that allows users to browse books, write and read reviews, and manage content through an admin dashboard. Designed with clean architecture, modular code structure, and visually appealing UI using modern frontend technologies.
 
-Evaluation Criteria
-1. Code quality and organization
-2. Proper use of React hooks and components
-3. RESTful API design and implementation
-4. Database schema design
-5. Error handling and edge case management
-6. Documentation clarity
-7. UI/UX design considerations
-Submission
-1. Provide a GitHub repository link containing your project
-2. Include a README with setup instructions and any additional notes
-3. (Optional) Deploy the application and provide a live demo URL
+---
+
+## 📌 Table of Contents
+
+* [Overview](#📖-overview)
+* [Features](#✨-features)
+* [Tech Stack](#🛠️-tech-stack)
+* [Project Structure](#📁-project-structure)
+* [Installation & Setup](#⚙️-installation--setup)
+* [API Routes](#📡-api-routes)
+* [Screenshots](#🖼️-screenshots)
+* [Future Improvements](#📌-future-improvements)
+* [License](#📝-license)
+
+---
+
+## 📖 Overview
+
+The **Book Review Platform** enables users to:
+
+* Register and login
+* Browse and search a library of books
+* Filter books by genre or search keywords
+* View detailed information for each book
+* Add, view, and manage reviews and ratings
+* See personal profile with review history
+* Admins can add or delete books via a dashboard
+
+This project emphasizes user experience, performance, and scalability, using best practices in frontend and backend development.
+
+---
+
+## ✨ Features
+
+### 🧑‍💻 User
+
+* 🔐 Secure Authentication with JWT
+* 📚 Browse all books
+* 🔍 Filter/search books by title, author, or genre
+* 📝 Write reviews and give ratings
+* 🧾 View personal review history
+* 👤 View/update profile
+
+### 🛡️ Admin
+
+* ➕ Add new books with image, genre, and description
+* ❌ Delete existing books
+* 📊 View all books in the dashboard
+
+### 🎨 UI/UX
+
+* ⚡ Fast navigation with React Router
+* 💅 Styled with modular CSS and CSS variables
+* 🎈 Animations for smooth transitions
+* 🌗 Responsive layout (mobile & desktop)
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer     | Tech                                       |
+| --------- | ------------------------------------------ |
+| Frontend  | React, Vite, React Router DOM, Context API |
+| Backend   | Node.js, Express.js                        |
+| Database  | MongoDB with Mongoose                      |
+| Auth      | JWT (JSON Web Token)                       |
+| Dev Tools | Nodemon, ESLint                            |
+| Styling   | CSS Modules, CSS Variables                 |
+| HTTP      | Axios / Fetch API                          |
+
+---
+
+## 📁 Project Structure
+
+### Frontend
+
+```
+client/
+├── components/
+│   ├── books/
+│   ├── common/
+│   ├── reviews/
+│   └── user/
+├── context/AppContext.jsx
+├── pages/
+│   ├── HomePage.jsx
+│   ├── BookDetails.jsx
+│   ├── ProfilePage.jsx
+│   ├── ReviewPage.jsx
+│   ├── AdminPage.jsx
+├── services/api.js
+├── styles/
+│   └── pages/
+├── utils/
+│   └── ProtectedRoute.jsx
+```
+
+### Backend
+
+```
+server/
+├── controllers/
+│   ├── authController.js
+│   ├── bookController.js
+│   └── reviewController.js
+├── middleware/
+│   ├── authMiddleware.js
+├── models/
+│   ├── Book.js
+│   ├── Review.js
+│   └── User.js
+├── routes/
+│   ├── authRoutes.js
+│   ├── bookRoutes.js
+│   └── reviewRoutes.js
+├── config/
+│   └── db.js
+├── utils/
+│   └── generateToken.js
+├── server.js
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 🔧 Prerequisites
+
+* Node.js & npm
+* MongoDB (local or Atlas)
+* Git
+
+### 🛠 Backend Setup
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+Set environment variables in `.env`:
+
+```
+PORT=5000
+MONGO_URI=mongodb+srv://aadishkumarak60:l1Lbv7Gn0tCoOSTa@cluster0.tmk1o6f.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+FRONTEND_URL=http://localhost:5173
+NODE_ENV=development
+JWT_SECRET=wefewfsdffs_sdS_SD_scv
+MAINTENANCE_MODE=false
+```
+
+### 🎨 Frontend Setup
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Make sure your API URLs match your backend in development (`http://localhost:5000`).
+
+---
+
+## 📡 API Routes
+
+### 📘 Books
+
+* `GET /api/books` — Get all books
+* `GET /api/books/:id` — Get single book
+* `POST /api/books` — Add new book (Admin)
+* `DELETE /api/books/:id` — Delete book (Admin)
+
+### 📝 Reviews
+
+* `GET /api/reviews/book/:bookId` — Get reviews for a book
+* `POST /api/reviews` — Add review
+
+### 👤 Users
+
+* `POST /api/register` — Register new user
+* `POST /api/login` — Login user
+* `GET /api/users/:id` — Get user details (protected)
+
+---
+
+## 🖼️ Screenshots
+
+### 📚 Homepage
+![Homepage](./client/public/HomePage.jpeg)
+
+### 🛡️ Admin
+![Admin](./client/public/AdminPage.jpeg)
+
+### 👤 User
+![User](./client/public/UserProfile.jpeg)
+
+### 📝 Review
+![Review](./client/public/ReviewPage.jpeg)
+
+### 📘 Book Details
+![Book Details](./client/public/BookList.jpeg)
+![Book Page](./client/public/BooksPage.jpeg)
 
 
+* 📚 **Homepage** — List of books with filters
+* 🔍 **Book Details** — Ratings, reviews, and description
+* 📝 **Add Review** — Form for writing reviews
+* 👤 **Profile Page** — View own reviews and details
+* 🛡️ **Admin Panel** — Add/Delete books
 
-book-review-platform/
-├── frontend/
-│   ├── public/
-│   │   ├── index.html
-│   │   └── vite.svg
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── common/
-│   │   │   │   ├── Header.jsx
-│   │   │   │   ├── Footer.jsx
-│   │   │   │   ├── Loading.jsx
-│   │   │   │   └── ErrorMessage.jsx
-│   │   │   ├── books/
-│   │   │   │   ├── BookCard.jsx
-│   │   │   │   ├── BookList.jsx
-│   │   │   │   ├── BookDetails.jsx
-│   │   │   │   └── SearchFilter.jsx
-│   │   │   ├── reviews/
-│   │   │   │   ├── ReviewCard.jsx
-│   │   │   │   ├── ReviewForm.jsx
-│   │   │   │   └── ReviewList.jsx
-│   │   │   └── user/
-│   │   │       ├── UserProfile.jsx
-│   │   │       └── UserReviews.jsx
-│   │   ├── pages/
-│   │   │   ├── HomePage.jsx
-│   │   │   ├── BooksPage.jsx
-│   │   │   ├── BookDetailsPage.jsx
-│   │   │   ├── ProfilePage.jsx
-│   │   │   └── NotFoundPage.jsx
-│   │   ├── context/
-│   │   │   └── AppContext.jsx
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── styles/
-│   │   │   ├── global.css
-│   │   │   ├── components/
-│   │   │   │   ├── header.css
-│   │   │   │   ├── footer.css
-│   │   │   │   ├── bookCard.css
-│   │   │   │   ├── reviewCard.css
-│   │   │   │   └── forms.css
-│   │   │   └── pages/
-│   │   │       ├── home.css
-│   │   │       ├── books.css
-│   │   │       └── profile.css
-│   │   ├── utils/
-│   │   │   └── helpers.js
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── vite.config.js
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   │   └── database.js
-│   │   ├── controllers/
-│   │   │   ├── bookController.js
-│   │   │   ├── reviewController.js
-│   │   │   └── userController.js
-│   │   ├── models/
-│   │   │   ├── Book.js
-│   │   │   ├── Review.js
-│   │   │   └── User.js
-│   │   ├── routes/
-│   │   │   ├── books.js
-│   │   │   ├── reviews.js
-│   │   │   └── users.js
-│   │   ├── middleware/
-│   │   │   ├── auth.js
-│   │   │   ├── validation.js
-│   │   │   └── errorHandler.js
-│   │   └── app.js
-│   ├── package.json
-│   └── server.js
-├── README.md
-└── .gitignore
+---
 
+## 📬 Contact
+
+Feel free to reach out for feedback,or ideas!
+
+* 📧 Email: aadishkumarak90@gmail.com
+* 💼 LinkedIn: www.linkedin.com/in/aadishkumar-s-a7016b1b3
+
+---
