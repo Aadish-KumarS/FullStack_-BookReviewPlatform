@@ -15,8 +15,7 @@ A full-stack MERN (MongoDB, Express.js, React.js, Node.js) application that allo
 * [Installation & Setup](#⚙️-installation--setup)
 * [API Routes](#📡-api-routes)
 * [Screenshots](#🖼️-screenshots)
-* [Future Improvements](#📌-future-improvements)
-* [License](#📝-license)
+
 
 ---
 
